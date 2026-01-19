@@ -33,4 +33,19 @@ contract FundMeTest is Test {
     function testPriceFeedVersion() public{
         assertEq(fundMe.getVersion(), 4);
     }
+  function testFundUpdatesFundedDataStructure() public {
+    address user = address(1);
+
+    vm.deal(user, 10e18);
+    vm.prank(user);
+
+    fundMe.fund{value: 6e18}();
+
+    uint256 amountFunded =
+        fundMe.getaddresstoamountfunded(user);
+
+    assertEq(amountFunded, 6e18);
+}
+
+
 }
